@@ -14,7 +14,7 @@ function RenderLeader ({leader}) {
                     <div className="col-sm-12 col-md">
                     <CardBody>
                         <CardTitle><strong>{leader.name}</strong></CardTitle>
-                        <p>{leader.designation}</p>
+                        <CardSubtitle><p>{leader.designation}</p></CardSubtitle>
                         <CardText><p>{leader.description}</p></CardText>
                         </CardBody>
                     </div>
