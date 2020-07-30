@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import {Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import { Control, Form, Errors} from 'react-redux-form';
+import { postFeedback } from '../redux/ActionCreators';
+
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
-const validEmail = (val) => /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(val);
+const validEmail = (val) => /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(val);
 
 
 class Contact extends Component {
@@ -20,10 +22,12 @@ class Contact extends Component {
 
 
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+       
+        // console.log('Current State is: ' + JSON.stringify(values));
+        // alert('Current State is: ' + JSON.stringify(values));
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
         this.props.resetFeedbackForm();
-        // event.preventDefault();
+        
     }
 
 
@@ -31,9 +35,8 @@ class Contact extends Component {
 
     return(
         <div className="container">
-                                <div className="row">
+                <div className="row">
                     <Breadcrumb>
-
                         <BreadcrumbItem>
                             <Link to='/home'>Home</Link>
                         </BreadcrumbItem>
